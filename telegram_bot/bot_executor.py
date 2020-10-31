@@ -19,7 +19,7 @@ from log_helper.msg_logger import MsgLogger
 
 
 STICKER_SET = 'sticker_set'
-LIMITATION = 100 * 1024 * 1024 # 100MB
+LIMITATION = 1000 * 1024 * 1024 # 1000MB
 LIMITATION_STRING = str(round(LIMITATION/(1024*1024))) + 'MB'
 
 
@@ -85,7 +85,7 @@ class BotExecutor():
         os.path.isdir(_dir) or os.makedirs(_dir)
         self.logger = MsgLogger(log_file=log_file_path).get_logger()
 
-        self.gif_file_size_max = 1 * 1024 * 1024 # 1MB
+        self.gif_file_size_max = 100 * 1024 * 1024 # 1MB
 
 
     ''' helper functions '''

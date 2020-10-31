@@ -5,3 +5,4 @@ __pycache__/
 .openssl/
 .app_cache/
 global_config/protected*
+.idea
