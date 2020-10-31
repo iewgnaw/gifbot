@@ -1,19 +1,18 @@
 ''''''
 
 import os
-import re
 import time
+
 from telegram import File, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (CommandHandler, MessageHandler, CallbackQueryHandler, RegexHandler,
                           Updater, Filters, PicklePersistence)
 from telegram.ext.dispatcher import run_async
 
-from global_config.protected_config import _telegrambot_token
 from global_config.environment_config import _base_dir, _temp_dir
 from telegram_bot.sticker_set_downloader import (download_sticker, download_sticker_set,
                                                  download_sticker_animated_pack)
 from telegram_bot.gif_downloader import download_gif_pack
-from telegram_bot.func_helper import random_string
+from telegram_bot.func_helper import random_string, get_telegram_bot_token
 from localization.translator import l10n
 from log_helper.msg_logger import MsgLogger
 
@@ -38,6 +37,7 @@ def is_usage_exceed(context, limit=LIMITATION):
     usage = user_dict['today_usage']
     return usage >= limit
 
+
 def set_usage(context, file_path=None):
     if not os.path.isfile(file_path):
         return -1
@@ -47,6 +47,7 @@ def set_usage(context, file_path=None):
     user_dict = context.user_data
     user_dict['today_usage'] += file_size
     return user_dict['today_usage']
+
 
 def check_usage_limit(func):
     def warpper(*args, **kwargs):
@@ -334,7 +335,8 @@ class BotExecutor():
         # persistence
         pp = PicklePersistence(self.persistence_file_path, single_file=False)
 
-        updater = Updater(_telegrambot_token, use_context=True, persistence=pp)
+        telegram_bot_token = get_telegram_bot_token()
+        updater = Updater(telegram_bot_token, use_context=True, persistence=pp)
         dp = updater.dispatcher
 
         dp.add_handler(CommandHandler('start', self.cmd_start))

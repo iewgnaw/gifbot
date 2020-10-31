@@ -4,16 +4,15 @@ import os
 from PIL import Image
 from telegram import Bot
 
-from global_config.protected_config import _telegrambot_token
 from global_config.environment_config import _base_dir, _temp_dir
-from telegram_bot.func_helper import random_string, zip_dir
+from telegram_bot.func_helper import random_string, zip_dir, get_telegram_bot_token
 
 
 class StickerSetDownloader():
     def __init__(self):
         ''''''
         self.num_threads = 4
-        self.bot = Bot(_telegrambot_token)
+        self.bot = Bot(get_telegram_bot_token())
 
     @staticmethod
     def webp2png(in_file_path, out_file_path):

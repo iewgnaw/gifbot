@@ -16,6 +16,7 @@ def random_string(length=8):
     shuffle(s_list)
     return ''.join(s_list[:length])
 
+
 def zip_dir(in_file_dir, out_file_path):
     ''''''
     f = zipfile.ZipFile(out_file_path, 'w', zipfile.ZIP_DEFLATED)
@@ -25,3 +26,10 @@ def zip_dir(in_file_dir, out_file_path):
         for filename in filenames:
             f.write(os.path.join(dirpath, filename), fpath+filename)
     f.close()
+
+
+def get_telegram_bot_token():
+    """
+    get token
+    """
+    return os.getenv('telegram_bot_token')

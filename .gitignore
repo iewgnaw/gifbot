@@ -6,3 +6,4 @@ __pycache__/
 .app_cache/
 global_config/protected*
 .idea
+YOUR_ABSOLUTE_LOCATION/
