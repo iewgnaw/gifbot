@@ -8,11 +8,10 @@ from telegram.ext import (CommandHandler, MessageHandler, CallbackQueryHandler, 
                           Updater, Filters, PicklePersistence)
 from telegram.ext.dispatcher import run_async
 
-from global_config.environment_config import _base_dir, _temp_dir
 from telegram_bot.sticker_set_downloader import (download_sticker, download_sticker_set,
                                                  download_sticker_animated_pack)
 from telegram_bot.gif_downloader import download_gif_pack
-from telegram_bot.func_helper import random_string, get_telegram_bot_token
+from telegram_bot.func_helper import random_string, get_telegram_bot_token, base_dir, temp_dir
 from localization.translator import l10n
 from log_helper.msg_logger import MsgLogger
 
@@ -68,8 +67,8 @@ class BotExecutor():
                  cert_path=None,
                  key_path=None,
                  webhook_url=None,
-                 persistence_file_path=os.path.join(_base_dir, '.app_cache/bot_data'),
-                 log_file_path=os.path.join(_base_dir, '.app_cache/app.log')):
+                 persistence_file_path=os.path.join(base_dir, '.app_cache/bot_data'),
+                 log_file_path=os.path.join(base_dir, '.app_cache/app.log')):
         ''''''
         # telegram
         self.cert_path = cert_path
@@ -104,8 +103,8 @@ class BotExecutor():
         message = update.effective_message
 
         try:
-            file_dir = os.path.join(_temp_dir, file_name)
-            zip_file_path = os.path.join(_temp_dir, file_name+'.zip')
+            file_dir = os.path.join(temp_dir, file_name)
+            zip_file_path = os.path.join(temp_dir, file_name + '.zip')
             if os.path.isfile(zip_file_path):
                 pass
             elif os.path.isdir(file_dir):
@@ -216,8 +215,8 @@ class BotExecutor():
         chat.send_action('upload_document')
 
         # download sticker
-        file_dir = os.path.join(_temp_dir, sticker_name)
-        file_path = os.path.join(_temp_dir, sticker_name, sticker_name+'.png')
+        file_dir = os.path.join(temp_dir, sticker_name)
+        file_path = os.path.join(temp_dir, sticker_name, sticker_name + '.png')
         if os.path.isfile(file_path):
             pass
         elif os.path.isdir(file_dir):

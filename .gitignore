@@ -1,9 +1,9 @@
 __pycache__/
 .vscode/
 
-.env/
+.venv/
 .openssl/
 .app_cache/
 global_config/protected*
 .idea
-YOUR_ABSOLUTE_LOCATION/
+data/

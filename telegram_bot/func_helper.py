@@ -33,3 +33,17 @@ def get_telegram_bot_token():
     get token
     """
     return os.getenv('telegram_bot_token')
+
+
+def get_base_dir():
+    default_dir = 'data/gifbot'
+    return os.getenv('base_dir') or default_dir
+
+
+def get_temp_dir():
+    default_dir = 'data/gifbot-temp'
+    return os.getenv('temp_dir') or default_dir
+
+
+base_dir = get_base_dir()
+temp_dir = get_temp_dir()

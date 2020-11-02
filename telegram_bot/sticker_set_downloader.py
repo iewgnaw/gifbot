@@ -4,8 +4,8 @@ import os
 from PIL import Image
 from telegram import Bot
 
-from global_config.environment_config import _base_dir, _temp_dir
 from telegram_bot.func_helper import random_string, zip_dir, get_telegram_bot_token
+from telegram_bot.func_helper import temp_dir
 
 
 class StickerSetDownloader():
@@ -57,7 +57,7 @@ class StickerSetDownloader():
         sticker = file_id if not isinstance(file_id, str) else self.bot.get_file(file_id)
 
         # use default `temp` path
-        save_dir = save_dir or _temp_dir
+        save_dir = save_dir or temp_dir
         file_name = sticker.file_path.split('/')[-1]
         if random_name:
             file_name = random_string() + '.webp'
@@ -76,7 +76,7 @@ class StickerSetDownloader():
         stickers = sticker_set.stickers
 
         # make dir `sticker_set_name`
-        file_dir = os.path.join(_temp_dir, sticker_set_name)
+        file_dir = os.path.join(temp_dir, sticker_set_name)
         os.path.isdir(file_dir) or os.makedirs(file_dir)
 
         # download and convert
@@ -95,7 +95,7 @@ class StickerSetDownloader():
         sticker = file_id if not isinstance(file_id, str) else self.bot.get_file(file_id)
 
         # use default `temp` path
-        save_dir = save_dir or _temp_dir
+        save_dir = save_dir or temp_dir
         file_name = sticker.file_path.split('/')[-1]
         if random_name:
             file_name = random_string() + '.tgs'
@@ -113,7 +113,7 @@ class StickerSetDownloader():
     def download_sticker_animated_pack(self, file_id, pack_name, out_path=None):
         ''''''
         # make dir `pack_name`
-        file_dir = os.path.join(_temp_dir, pack_name)
+        file_dir = os.path.join(temp_dir, pack_name)
         os.path.isdir(file_dir) or os.makedirs(file_dir)
 
         # download and convert

@@ -3,9 +3,8 @@
 import os
 from telegram import Bot
 
-from global_config.environment_config import _base_dir, _temp_dir
 from telegram_bot.func_helper import random_string, zip_dir, get_telegram_bot_token
-
+from telegram_bot.func_helper import temp_dir
 
 class GifDownloader():
     def __init__(self):
@@ -26,7 +25,7 @@ class GifDownloader():
         # command = 'ffmpeg -y -i %(mp4)s -i %(palette)s -filter_complex "fps=10,scale=-1:-1:flags=lanczos[x];[x][1:v]paletteuse" %(gif)s'
         # command = command % {'mp4': in_file_path, 'palette': palette_path, 'gif': out_file_path}
         #
-        command = 'ffmpeg -y -i %(mp4)s -vf fps=10,scale=iw/2:ih/2  %(gif)s' % {'mp4': in_file_path, 'gif': out_file_path}
+        command = 'ffmpeg -y -i %(mp4)s -vf fps=6,scale=-1:-1  %(gif)s' % {'mp4': in_file_path, 'gif': out_file_path}
         status = os.system(command + ' > /dev/null 2>&1')
         # os.path.isfile(palette_path) and os.remove(palette_path)
         if status != 0:
@@ -39,7 +38,7 @@ class GifDownloader():
         gif = file_id if not isinstance(file_id, str) else self.bot.get_file(file_id)
 
         # use default `temp` path
-        save_dir = save_dir or _temp_dir
+        save_dir = save_dir or temp_dir
         file_name = gif.file_path.split('/')[-1]
         if random_name:
             file_name = random_string() + '.mp4'
@@ -55,7 +54,7 @@ class GifDownloader():
     def download_gif_pack(self, file_id, pack_name, out_path=None):
         ''''''
         # make dir `pack_name`
-        file_dir = os.path.join(_temp_dir, pack_name)
+        file_dir = os.path.join(temp_dir, pack_name)
         os.path.isdir(file_dir) or os.makedirs(file_dir)
 
         # download and convert

@@ -1,8 +1,3 @@
-''''''
-
-import os
-
-from global_config.environment_config import _base_dir
 from telegram_bot.bot_executor import BotExecutor
 
 
